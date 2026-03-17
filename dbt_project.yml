@@ -1,18 +1,19 @@
 # =============================================================================
-# dbt_project.yml — rtl_staging (Retail Data Platform - Staging Layer)
+# dbt_project.yml — rtl_rdp_client (Retail Data Platform - Client Layer)
 # =============================================================================
-# This file is the central configuration for the rtl_staging dbt project.
-# This project is CUSTOMER-OWNED and controlled. It defines the mapping layer
-# between the customer's source data (landing) and the RDP contract schema.
+# This file is the central configuration for the rtl_rdp_client dbt project.
+# This project is CUSTOMER-OWNED and controlled. It contains two layers:
+#   1. staging — maps customer source data to the RDP contract schema
+#   2. client  — customer's own custom tables and views
 # Environment-specific dataset names are resolved at runtime via the
 # generate_schema_name macro, which prepends the target name (dev/tst/prd).
 # =============================================================================
 
-name: 'rtl_staging'
+name: 'rtl_rdp_client'
 version: '1.0.0'
 
 # Profile name must match the entry in ~/.dbt/profiles.yml
-profile: 'rtl_staging'
+profile: 'rtl_rdp_client'
 
 # =============================================================================
 # File Path Configuration
@@ -33,9 +34,14 @@ clean-targets:
 
 # =============================================================================
 # Model Layer Configuration
-# This project contains a single layer — staging.
-# Staging views map customer source data to the RDP contract schema.
-# The rtl_rdp project consumes this layer via source() declarations.
+# Each layer maps to a BigQuery dataset and materialization strategy.
+# Dataset names are prefixed with the environment at runtime:
+#   dev_rdp_staging, tst_rdp_staging, prd_rdp_staging etc.
+# Owner indicates who is responsible for maintaining each layer.
+#
+# Layer dependency chain:
+#   staging → [consumed by rtl_rdp via source()]
+#   client  → [customer's own content, not consumed by rtl_rdp]
 #
 # Access rules:
 #   - Customers own and maintain all models in this project
@@ -44,7 +50,7 @@ clean-targets:
 # =============================================================================
 
 models:
-  rtl_staging:
+  rtl_rdp_client:
 
     staging:
       # PURPOSE: Customer-controlled mapping layer. Translates customer source
@@ -57,3 +63,13 @@ models:
       # CONSUMED BY: rtl_rdp project via source() declarations
       +materialized: view
       +schema: rdp_staging
+
+    client:
+      # PURPOSE: Optional customer-owned tables and views. Customers can add
+      # any custom models here that are specific to their implementation.
+      # Not consumed by rtl_rdp product. No restrictions on content.
+      # OWNER: Customer
+      # DATASET: {env}_rdp_client
+      # READS FROM: any source
+      +materialized: table
+      +schema: rdp_client
