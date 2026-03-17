@@ -1,0 +1,59 @@
+# =============================================================================
+# dbt_project.yml — rtl_staging (Retail Data Platform - Staging Layer)
+# =============================================================================
+# This file is the central configuration for the rtl_staging dbt project.
+# This project is CUSTOMER-OWNED and controlled. It defines the mapping layer
+# between the customer's source data (landing) and the RDP contract schema.
+# Environment-specific dataset names are resolved at runtime via the
+# generate_schema_name macro, which prepends the target name (dev/tst/prd).
+# =============================================================================
+
+name: 'rtl_staging'
+version: '1.0.0'
+
+# Profile name must match the entry in ~/.dbt/profiles.yml
+profile: 'rtl_staging'
+
+# =============================================================================
+# File Path Configuration
+# Defines where dbt looks for each type of file in the project.
+# These follow dbt conventions and should not need to change.
+# =============================================================================
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# Directories removed when running dbt clean
+clean-targets:
+  - "target"       # compiled SQL and run artifacts
+  - "dbt_packages" # installed dbt packages
+
+# =============================================================================
+# Model Layer Configuration
+# This project contains a single layer — staging.
+# Staging views map customer source data to the RDP contract schema.
+# The rtl_rdp project consumes this layer via source() declarations.
+#
+# Access rules:
+#   - Customers own and maintain all models in this project
+#   - RDP product reads from rdp_staging via source() only
+#   - No direct dependencies on rtl_rdp models allowed
+# =============================================================================
+
+models:
+  rtl_staging:
+
+    staging:
+      # PURPOSE: Customer-controlled mapping layer. Translates customer source
+      # data from landing into the RDP contract schema. Views only — no data
+      # storage cost. Must satisfy the RDP staging contract defined in
+      # the RDP product documentation.
+      # OWNER: Customer
+      # DATASET: {env}_rdp_staging
+      # READS FROM: landing (customer source tables)
+      # CONSUMED BY: rtl_rdp project via source() declarations
+      +materialized: view
+      +schema: rdp_staging
