@@ -1,5 +1,5 @@
 packages:
   - git: https://github.com/juanestebanpereira-bit/retail-data-platform.git
     name: rtl_rdp
-    revision: 5d960dee45ec09fcd38a712f8b503d0e04459814
+    revision: 7db50557dd38edd143630de698f330b19ff73a07
 sha1_hash: 9cd0ce9486da1d8ba40ffa5740b14cf769401fcb

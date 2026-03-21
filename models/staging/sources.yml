@@ -1,0 +1,107 @@
+# =============================================================================
+# sources.yml — staging root
+# =============================================================================
+# Defines all source systems available to staging models.
+# Each source system has its own named block with its own database,
+# schema, and tables.
+#
+# This file is the single source of truth for all landing zone
+# references across all subject areas and components.
+#
+# In a real customer implementation:
+#   - Update database to match the customer's GCP project ID
+#   - Update schema to match the customer's landing dataset names
+#   - Update table names to match the customer's actual table names
+#   - Add or remove source blocks to match available source systems
+#
+# Owner: Customer
+# =============================================================================
+
+version: 2
+
+sources:
+
+  # ---------------------------------------------------------------------------
+  # Merchandising
+  # ---------------------------------------------------------------------------
+  # Core merchandising system. Contains product, pricing, inventory
+  # and store data. Currently mapped to Olist landing tables for
+  # prototype purposes. In production, replace with the customer's
+  # actual merchandising system configuration.
+  # ---------------------------------------------------------------------------
+  - name: merchandising
+    description: >
+      Core merchandising source system — products, pricing, inventory
+      and store data. Currently mapped to Olist landing tables for
+      prototype purposes.
+    database: crested-sentry-489814-b6
+    schema: olist_landing
+    tables:
+      - name: olist_products_dataset
+        description: "Raw product data."
+      - name: olist_sellers_dataset
+        description: "Raw seller data."
+      - name: olist_geolocation_dataset
+        description: "Raw geolocation data."
+
+  # ---------------------------------------------------------------------------
+  # E-commerce
+  # ---------------------------------------------------------------------------
+  # E-commerce platform source. Contains digital orders, order items,
+  # customers, payments and reviews. Currently mapped to Olist landing
+  # tables for prototype purposes. In production, replace with the
+  # customer's actual e-commerce platform configuration.
+  # ---------------------------------------------------------------------------
+  - name: ecommerce
+    description: >
+      E-commerce platform source — digital orders, customers and
+      payments. Currently mapped to Olist landing tables for
+      prototype purposes.
+    database: crested-sentry-489814-b6
+    schema: olist_landing
+    tables:
+      - name: olist_orders_dataset
+        description: "Raw order header data."
+      - name: olist_order_items_dataset
+        description: "Raw order line item data."
+      - name: olist_customers_dataset
+        description: "Raw customer data."
+      - name: olist_order_payments_dataset
+        description: "Raw payment data."
+      - name: olist_order_reviews_dataset
+        description: "Raw review data."
+
+  # ---------------------------------------------------------------------------
+  # Supply Chain
+  # ---------------------------------------------------------------------------
+  # Supply chain source. Contains purchase orders and receipts.
+  # Not mapped in the Olist prototype — placeholder for future
+  # implementation.
+  # ---------------------------------------------------------------------------
+  # - name: supply_chain
+  #   description: "Supply chain source — purchase orders and receipts."
+  #   database: crested-sentry-489814-b6
+  #   schema: supply_chain_landing
+  #   tables:
+  #     - name: purchase_orders
+  #       description: "Raw purchase order headers."
+  #     - name: receipts
+  #       description: "Raw receipt data."
+
+  # ---------------------------------------------------------------------------
+  # Miscellaneous
+  # ---------------------------------------------------------------------------
+  # Manual uploads and spreadsheet data. Contains reference data that
+  # does not come from a transactional system.
+  # Not mapped in the Olist prototype — placeholder for future
+  # implementation.
+  # ---------------------------------------------------------------------------
+  # - name: misc
+  #   description: "Manual uploads and spreadsheet data."
+  #   database: crested-sentry-489814-b6
+  #   schema: misc_landing
+  #   tables:
+  #     - name: store_list
+  #       description: "Manual store list upload."
+  #     - name: fiscal_calendar
+  #       description: "Fiscal calendar spreadsheet."

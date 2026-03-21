@@ -1,0 +1,113 @@
+# =============================================================================
+# schema.yml — staging/products/product_hierarchy
+# =============================================================================
+# Tests and documentation for product hierarchy staging models.
+# Enforces the RDP staging contract defined in contract/products.md.
+#
+# Component:  Product Hierarchy
+# Owner:      Customer
+# =============================================================================
+
+version: 2
+
+models:
+
+  - name: stg_departments
+    description: >
+      Staged department data mapped to RDP contract schema.
+      Derived from distinct product categories in the Olist
+      products table for prototype purposes.
+    columns:
+      - name: department_id
+        description: "{{ doc('department_id') }}"
+        tests:
+          - not_null
+          - unique
+
+      - name: department_number
+        description: "{{ doc('department_number') }}"
+        tests:
+          - not_null
+
+      - name: department_name
+        description: "{{ doc('department_name') }}"
+        tests:
+          - not_null
+
+  - name: stg_classes
+    description: >
+      Staged class data mapped to RDP contract schema.
+      Loaded from seed file for prototype purposes.
+    columns:
+      - name: class_id
+        description: "{{ doc('class_id') }}"
+        tests:
+          - not_null
+          - unique
+
+      - name: department_id
+        description: "{{ doc('department_id') }}"
+        tests:
+          - not_null
+
+      - name: class_number
+        description: "{{ doc('class_number') }}"
+        tests:
+          - not_null
+
+      - name: class_name
+        description: "{{ doc('class_name') }}"
+        tests:
+          - not_null
+
+  - name: stg_styles
+    description: >
+      Staged style data mapped to RDP contract schema.
+      Loaded from seed file for prototype purposes.
+    columns:
+      - name: style_id
+        description: "{{ doc('style_id') }}"
+        tests:
+          - not_null
+          - unique
+
+      - name: class_id
+        description: "{{ doc('class_id') }}"
+        tests:
+          - not_null
+
+      - name: style_number
+        description: "{{ doc('style_number') }}"
+        tests:
+          - not_null
+
+      - name: style_name
+        description: "{{ doc('style_name') }}"
+        tests:
+          - not_null
+
+  - name: stg_items
+    description: >
+      Staged item data mapped to RDP contract schema.
+      Each Olist product maps to one RDP item.
+    columns:
+      - name: item_id
+        description: "{{ doc('item_id') }}"
+        tests:
+          - not_null
+          - unique
+
+      - name: style_id
+        description: "{{ doc('style_id') }}"
+        tests:
+          - not_null
+
+      - name: item_number
+        description: "{{ doc('item_number') }}"
+        tests:
+          - not_null
+
+      - name: item_name
+        description: "{{ doc('item_name') }}"
+        tests:
+          - not_null
