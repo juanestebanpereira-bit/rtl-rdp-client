@@ -1,0 +1,13 @@
+# =============================================================================
+# packages.yml — rtl_rdp_client
+# =============================================================================
+# Declares dependencies on the rtl_rdp package. This gives rtl_rdp_client
+# access to all shared macros, generic tests, and doc() blocks defined
+# in the RDP product project without duplication.
+#
+# After adding or updating packages, run: dbt deps
+# =============================================================================
+
+packages:
+  - git: "https://github.com/juanestebanpereira-bit/retail-data-platform.git"
+    revision: main
