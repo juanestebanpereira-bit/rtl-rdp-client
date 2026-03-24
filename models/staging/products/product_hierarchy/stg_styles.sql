@@ -21,11 +21,14 @@ WITH source AS (
 renamed AS (
     SELECT
         product_id                          AS style_id,
-        product_category_name               AS class_id,
+        COALESCE(
+            product_category_name,
+            'NOT_ASSIGNED'
+        )                                   AS class_id,
         product_id                          AS style_number,
         COALESCE(
             product_category_name,
-            'Unknown'
+            'UNKNOWN'
         )                                   AS style_name
     FROM source
 )
