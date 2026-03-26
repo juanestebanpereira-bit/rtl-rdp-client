@@ -34,6 +34,11 @@ models:
         tests:
           - not_null
 
+      - name: rdp_source_system
+        description: "Identifies the source system that provided this record. Set by the customer in the staging layer."
+        tests:
+          - not_null
+
   - name: stg_classes
     description: >
       Staged class data mapped to RDP contract schema.
@@ -57,6 +62,11 @@ models:
 
       - name: class_name
         description: "{{ doc('class_name') }}"
+        tests:
+          - not_null
+
+      - name: rdp_source_system
+        description: "Identifies the source system that provided this record. Set by the customer in the staging layer."
         tests:
           - not_null
 
@@ -86,6 +96,11 @@ models:
         tests:
           - not_null
 
+      - name: rdp_source_system
+        description: "Identifies the source system that provided this record. Set by the customer in the staging layer."
+        tests:
+          - not_null
+
   - name: stg_items
     description: >
       Staged item data mapped to RDP contract schema.
@@ -109,5 +124,10 @@ models:
 
       - name: item_name
         description: "{{ doc('item_name') }}"
+        tests:
+          - not_null
+
+      - name: rdp_source_system
+        description: "Identifies the source system that provided this record. Set by the customer in the staging layer."
         tests:
           - not_null

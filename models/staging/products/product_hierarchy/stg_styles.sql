@@ -29,7 +29,8 @@ renamed AS (
         COALESCE(
             product_category_name,
             'UNKNOWN'
-        )                                   AS style_name
+        )                                   AS style_name,
+        'olist'                             AS rdp_source_system
     FROM source
 )
 

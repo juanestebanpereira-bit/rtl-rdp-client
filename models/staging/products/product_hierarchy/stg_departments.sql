@@ -31,7 +31,11 @@ renamed AS (
         product_category_name               AS department_number,
 
         -- Use category name as display name
-        product_category_name               AS department_name
+        product_category_name               AS department_name,
+
+        'Jack Smith'                        AS cust_department_manager,
+
+        'olist'                             AS rdp_source_system
 
     FROM source
 )

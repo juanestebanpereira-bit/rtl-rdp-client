@@ -22,7 +22,8 @@ renamed AS (
         product_category_name               AS class_id,
         product_category_name               AS department_id,
         product_category_name               AS class_number,
-        product_category_name               AS class_name
+        product_category_name               AS class_name,
+        'olist'                             AS rdp_source_system
     FROM source
 )
 
