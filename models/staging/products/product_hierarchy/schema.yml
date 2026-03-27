@@ -17,6 +17,9 @@ models:
       Staged department data mapped to RDP contract schema.
       Derived from distinct product categories in the Olist
       products table for prototype purposes.
+    constraints:
+      - type: primary_key
+        columns: [department_id]
     columns:
       - name: department_id
         description: "{{ doc('department_id') }}"
@@ -43,6 +46,9 @@ models:
     description: >
       Staged class data mapped to RDP contract schema.
       Loaded from seed file for prototype purposes.
+    constraints:
+      - type: primary_key
+        columns: [class_id]
     columns:
       - name: class_id
         description: "{{ doc('class_id') }}"
@@ -52,6 +58,10 @@ models:
 
       - name: department_id
         description: "{{ doc('department_id') }}"
+        constraints:
+          - type: foreign_key
+            to: ref('stg_departments')
+            to_columns: [department_id]
         tests:
           - not_null
 
@@ -74,6 +84,9 @@ models:
     description: >
       Staged style data mapped to RDP contract schema.
       Loaded from seed file for prototype purposes.
+    constraints:
+      - type: primary_key
+        columns: [style_id]
     columns:
       - name: style_id
         description: "{{ doc('style_id') }}"
@@ -83,6 +96,10 @@ models:
 
       - name: class_id
         description: "{{ doc('class_id') }}"
+        constraints:
+          - type: foreign_key
+            to: ref('stg_classes')
+            to_columns: [class_id]
         tests:
           - not_null
 
@@ -105,6 +122,9 @@ models:
     description: >
       Staged item data mapped to RDP contract schema.
       Each Olist product maps to one RDP item.
+    constraints:
+      - type: primary_key
+        columns: [item_id]
     columns:
       - name: item_id
         description: "{{ doc('item_id') }}"
@@ -114,6 +134,10 @@ models:
 
       - name: style_id
         description: "{{ doc('style_id') }}"
+        constraints:
+          - type: foreign_key
+            to: ref('stg_styles')
+            to_columns: [style_id]
         tests:
           - not_null
 
