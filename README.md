@@ -1,15 +1,34 @@
-Welcome to your new dbt project!
+# rtl_rdp_client — RDP Customer Implementation
 
-### Using the starter project
+This is the reference customer implementation for the Retail Data Platform.
+It maps customer source data to the RDP staging contract defined in
+`rtl_rdp/CONTRACT.md` and installs `rtl_rdp` as a dbt package.
 
-Try running the following commands:
-- dbt run
-- dbt test
+Customer teams fork this repository and adapt the staging models to their
+own source systems. The RDP product code in `rtl_rdp` is never modified
+directly — all customisation happens here.
 
+## This Repository
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+`rtl_rdp_client` is one of three git repositories in the `retail-analytics` monorepo.
+See the root `README.md` for the full picture.
+
+## Key Documents
+
+- `rtl_rdp/CONTRACT.md` — staging contract to implement, including custom column documentation
+- `rtl_rdp/STYLE_GUIDE.md` — SQL and dbt coding standards
+
+## Getting Started
+
+```bash
+dbt deps      # Install rtl_rdp package — required before first run
+dbt compile   # Verify the project compiles against your source definitions
+dbt run       # Run all models
+dbt test      # Run all data quality tests
+```
+
+## Adding Custom Columns
+
+Custom columns use the `cust_` prefix and are passed through to downstream
+RDP views automatically. See `rtl_rdp/CONTRACT.md` — "Documenting Customer
+Columns" for how to document them in `schema.yml` and `docs.md`.
