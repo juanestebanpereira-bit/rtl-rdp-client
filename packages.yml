@@ -9,5 +9,5 @@
 # =============================================================================
 
 packages:
-  - git: "https://github.com/juanestebanpereira-bit/retail-data-platform.git"
+  - git: "https://github.com/juanestebanpereira-bit/rdp-model.git"
     revision: main
